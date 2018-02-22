@@ -6,17 +6,18 @@ import {
   OnChanges,
   OnInit
 } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'parent',
   template: `
     <div>
-      parent-component (value: {{ value }})
+      parent-component (value: {{ value | async }})
 
-      <child [value]="value"></child>
+      <child [value]="value | async"></child>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class ParentComponent implements OnInit, OnChanges, DoCheck {
   constructor(private cd: ChangeDetectorRef) { }
@@ -26,24 +27,21 @@ export class ParentComponent implements OnInit, OnChanges, DoCheck {
   ngOnInit() {
     console.log("%cOnInit (Parent)", "color: lightgreen");
 
-    this.value = 1;
+    const offset = 5000;
+    const interval = 1000;
 
-    setTimeout(() => {
-
-      setInterval(() => {
-        this.value += 1;
-        console.log(this.value);
-      }, 2000);
-
-    }, 5000);
+    this.value = Observable
+      .timer(offset, interval)
+      .startWith(0)
+      .do((value) => console.log("value:", value));
   }
 
   ngOnChanges() {
-    console.log("%cOnChanges (Parent)", "color: lightgreen");
+    console.log("%cOnChanges (Parent)", "color: red");
+    // why isn't this one being called? value is now an observable!
   }
 
   ngDoCheck() {
     console.log("%cDoCheck (Parent)", "color: lightgreen");
-    this.cd.detectChanges();
   }
 }
