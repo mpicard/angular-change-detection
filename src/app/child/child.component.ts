@@ -29,7 +29,7 @@ export class ChildComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnChanges() {
-    console.log("%cOnChanges (child)", "color: pink");
+    console.log("%cOnChanges (child)", "color: red");
   }
 
   ngDoCheck() {
