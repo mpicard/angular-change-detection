@@ -17,7 +17,7 @@ import {
       value: {{ value | async }}
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChildComponent implements OnInit, OnChanges, DoCheck {
   constructor(private cd: ChangeDetectorRef) { }
