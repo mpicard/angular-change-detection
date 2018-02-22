@@ -1,16 +1,25 @@
-import { ChangeDetectionStrategy, Component, DoCheck, OnChanges, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DoCheck,
+  OnChanges,
+  OnInit
+} from '@angular/core';
 
 @Component({
   selector: 'parent',
   template: `
     <div>
       parent-component (value: {{ value }})
+
       <child [value]="value"></child>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParentComponent implements OnInit, OnChanges, DoCheck {
+  constructor(private cd: ChangeDetectorRef) { }
 
   value;
 
@@ -35,5 +44,6 @@ export class ParentComponent implements OnInit, OnChanges, DoCheck {
 
   ngDoCheck() {
     console.log("%cDoCheck (Parent)", "color: lightgreen");
+    this.cd.detectChanges();
   }
 }

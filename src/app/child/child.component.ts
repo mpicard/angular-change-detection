@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DoCheck,
   Input,
@@ -16,9 +17,11 @@ import {
       value: {{ value }}
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class ChildComponent implements OnInit, OnChanges, DoCheck {
+  constructor(private cd: ChangeDetectorRef) { }
+
   @Input() value;
 
   ngOnInit() {
