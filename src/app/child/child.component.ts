@@ -14,7 +14,9 @@ import {
     <div>
       child-component
 
-      value: {{ value }}
+      value: {{ value | async }}
+
+      not: {{ notObservable }}
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Default
@@ -23,6 +25,8 @@ export class ChildComponent implements OnInit, OnChanges, DoCheck {
   constructor(private cd: ChangeDetectorRef) { }
 
   @Input() value;
+
+  @Input() notObservable;
 
   ngOnInit() {
     console.log("%cOnInit (child)", "color: pink");
