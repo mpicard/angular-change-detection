@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'parent',
@@ -7,7 +7,8 @@ import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
       parent-component (value: {{ value }})
       <child [value]="value"></child>
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParentComponent implements OnInit, OnChanges, DoCheck {
 

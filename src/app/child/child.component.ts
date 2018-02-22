@@ -1,4 +1,11 @@
-import { Component, DoCheck, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DoCheck,
+  Input,
+  OnChanges,
+  OnInit
+} from '@angular/core';
 
 @Component({
   selector: 'child',
@@ -8,7 +15,8 @@ import { Component, DoCheck, Input, OnChanges, OnInit } from '@angular/core';
 
       value: {{ value }}
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChildComponent implements OnInit, OnChanges, DoCheck {
   @Input() value;
