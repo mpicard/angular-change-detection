@@ -12,9 +12,10 @@ import { Observable } from 'rxjs';
   selector: 'parent',
   template: `
     <div>
-      parent-component (value: {{ value | async }})
+      parent-component
+      (value: {{ value | async }})
 
-      <child [value]="value | async"></child>
+      <child [value]="value"></child>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Default
@@ -38,7 +39,8 @@ export class ParentComponent implements OnInit, OnChanges, DoCheck {
 
   ngOnChanges() {
     console.log("%cOnChanges (Parent)", "color: red");
-    // why isn't this one being called? value is now an observable!
+    // why isn't this one being called? value is now an observable
+    // it's reference isn't changing and Angular can deal with that
   }
 
   ngDoCheck() {
