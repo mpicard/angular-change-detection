@@ -1,11 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DoCheck,
-  OnChanges,
-  OnInit
-} from '@angular/core';
+import { NgRedux, select } from '@angular-redux/store';
+import { ChangeDetectionStrategy, Component, DoCheck, OnChanges, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -21,20 +15,16 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParentComponent implements OnInit, OnChanges, DoCheck {
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private store: NgRedux<number>) { }
 
-  value;
+  @select(s => s) value: Observable<number>;
 
   ngOnInit() {
     console.log("%cOnInit (Parent)", "color: lightgreen");
 
-    const offset = 5000;
-    const interval = 1000;
-
-    this.value = Observable
-      .timer(offset, interval)
-      .startWith(0)
-      .do((value) => console.log("value:", value));
+    setInterval(() => {
+      this.store.dispatch({ type: 'INCREMENT' });
+    }, 1000);
   }
 
   /**

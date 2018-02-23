@@ -14,7 +14,7 @@ import {
     <div>
       child-component
 
-      value: {{ value | async }}
+      (value: {{ value | async }})
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
